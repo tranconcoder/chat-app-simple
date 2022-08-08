@@ -1,41 +1,32 @@
-import express from 'express';
 import dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+
 import RouteIndex from './routes/index.route';
-import { Server } from 'socket.io';
-import { createServer } from 'http';
+import { setupStaticFile, setupViewEngine } from './utils/setup.util';
+import setupSocket from './services/socket/setup.socket';
+import setupMongoose from './database/mongo.db';
 
 dotenv.config();
 
 // Express server
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
-const routeIndex = new RouteIndex(app);
 
-app.use(express.static('public'));
+// Setup server
+app.use(cors());
+setupMongoose();
+setupViewEngine(app);
+setupStaticFile(app);
+
+// Handle redirect route
+const routeIndex = new RouteIndex(app);
 routeIndex.listenRoutes();
 
-// Socket server
-const httpServer = createServer(app);
-const io = new Server(httpServer, {
-	path: '/socket',
-	upgradeTimeout: 3000,
-	cors: {
-		origin: 'http://localhost:4000',
-	},
+// Setup socket io
+const [httpServer, io] = setupSocket(app);
+httpServer.listen(PORT, () => {
+	console.log(`Server is running: http://localhost:${PORT}`);
 });
 
-io.on('connection', (socket) => {
-	console.log('connected ' + socket.id);
-
-	socket.on('say', (chatContent) => {
-		io.emit('say', chatContent);
-	});
-});
-
-httpServer.listen(PORT, () =>
-	console.log(`Server is running: http://localhost:${PORT}`)
-);
-
-import './database/mongo.db';
-
-export { io, app };
+export { app, io };

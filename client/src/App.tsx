@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import useNeedAuth from './hooks/useNeedAuth';
 
 function App() {
+	useNeedAuth();
+
 	const [chatList, setChatList] = useState<string[]>([]);
 	const [messageInput, setMessageInput] = useState<string>('');
 

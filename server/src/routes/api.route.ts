@@ -1,7 +1,8 @@
 import { CustomRoute } from '../utils/route.utils';
 import { Router } from 'express';
+import Token from './token.route';
 
-class Home extends CustomRoute {
+class API extends CustomRoute {
 	constructor() {
 		super(Router());
 
@@ -9,10 +10,8 @@ class Home extends CustomRoute {
 	}
 
 	private handleRoute() {
-		this.Route.get('/', (req, res) => {
-			res.json('Hello world!');
-		});
+		this.Route.use('/token', this.handleChildRoute(Token));
 	}
 }
 
-export default Home;
+export default API;

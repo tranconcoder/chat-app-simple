@@ -1,16 +1,12 @@
-import { ChildRoute } from '../utils/route.utils';
+import { CustomRoute } from '../utils/route.utils';
 import { Router } from 'express';
 import passport from '../passport';
 
 import authController from '../controllers/auth.controller';
 
-class Auth extends ChildRoute {
-	public Route: Router;
-
-	constructor(parentPath: string) {
-		super(parentPath);
-
-		this.Route = Router();
+class Auth extends CustomRoute {
+	constructor() {
+		super(Router());
 
 		this.handleRoute();
 	}

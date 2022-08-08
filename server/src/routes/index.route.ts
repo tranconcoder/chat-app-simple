@@ -1,24 +1,18 @@
-import { RootRoute } from '../utils/route.utils';
 import type { Express } from 'express';
 import Home from './home.route';
 import Auth from './auth.route';
+import { CustomRoute } from '../utils/route.utils';
+import API from './api.route';
 
-class IndexRoute extends RootRoute {
-	private readonly app: Express;
-
+class IndexRoute extends CustomRoute {
 	constructor(app: Express) {
-		super();
-
-		this.app = app;
+		super(app);
 	}
 
 	public listenRoutes() {
-		this.app.use('/', this.handleChildRoute('/', Home));
-		this.app.use('/auth', this.handleChildRoute('/', Auth));
-	}
-
-	private handleChildRoute(path: string, childRouteClass: any) {
-		return new childRouteClass(path).Route;
+		this.Route.use('/', this.handleChildRoute(Home));
+		this.Route.use('/auth', this.handleChildRoute(Auth));
+		this.Route.use('/api', this.handleChildRoute(API));
 	}
 }
 

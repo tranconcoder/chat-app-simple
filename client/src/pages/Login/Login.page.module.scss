@@ -1,31 +1,30 @@
 .login {
-	padding-block: 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	@include flex(column, center, center);
+	padding: 20px;
 
 	> img {
-		width: 100%;
+		@include size(100%, false);
 	}
 
 	.button {
-		width: 100%;
-		padding: 10px 20px;
+		@include size(calc(100% - 40px), false);
+		@include flex(row, center);
+		@include position(fixed, false, 20px, 20px);
+		padding: 14px 20px;
 		border-radius: 10px;
 		border: none;
-		display: flex;
-		align-items: center;
-		font-size: 16px;
-		color: #333;
+		font-size: 18px;
+		color: var(--text-color);
 
 		svg {
 			font-size: 28px;
-			margin-right: 20px;
 		}
 
 		p {
+			font-size: 16px;
+			font-weight: 500;
 			padding-top: 3px;
+			margin-inline: auto;
 		}
 	}
 }
