@@ -1,0 +1,45 @@
+.logo-container {
+	@include position(relative);
+	background-color: var(--white-color);
+	border-radius: 50%;
+	transform: translateY(-35%);
+	animation: showLogoContainer 1.5s ease-in-out forwards;
+
+	&.first-animation {
+		animation: showLogoContainerFirst 1.5s ease-in-out forwards;
+	}
+
+	&::before {
+		content: '';
+		display: block;
+		padding-bottom: 100%;
+	}
+
+	> img {
+		@include position(absolute, false, 50%, 24px);
+		@include size(224px, 205px);
+		transform: translateX(50%);
+	}
+
+	@keyframes showLogoContainerFirst {
+		from {
+			@include size(500%, false);
+			opacity: 0;
+		}
+		to {
+			@include size(110%, false);
+			opacity: 1;
+		}
+	}
+
+	@keyframes showLogoContainer {
+		from {
+			@include size(0%, false);
+			opacity: 0;
+		}
+		to {
+			@include size(110%, false);
+			opacity: 1;
+		}
+	}
+}

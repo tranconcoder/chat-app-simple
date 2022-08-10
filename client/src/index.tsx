@@ -1,17 +1,17 @@
-import './assets/scss/reset.scss';
 import './assets/scss/fonts.scss';
+import './assets/scss/reset.scss';
 import './assets/scss/variables.scss';
 
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import startRouteConfig from './config/startRoute.config';
+import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
-import Home from './pages/Home.page';
-import Login from './pages/Login/Login.page';
-import App from './App';
 import HandleLogin from './components/HandleLogin';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -20,8 +20,20 @@ root.render(
 	<Provider store={store}>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<App />} />
-				<Route path="/login" element={<Login />} />
+				<Route path="/start">
+					{Object.entries(startRouteConfig).map(
+						([key, value], index) => {
+							return (
+								<Route key={index} path={key} element={value} />
+							);
+						}
+					)}
+				</Route>
+
+				<Route path="/auth">
+					<Route path="login" element={<LoginPage />} />
+					<Route path="register" element={<RegisterPage />} />
+				</Route>
 			</Routes>
 
 			<HandleLogin />
