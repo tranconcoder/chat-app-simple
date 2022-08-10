@@ -5,6 +5,7 @@ import { ReactComponent as MessageIcon } from '../../../assets/images/message-ic
 import classNames from 'classnames/bind';
 
 import ThumbnailContainer from '../LogoContainer';
+import { CSSProperties } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -13,11 +14,13 @@ function SlideTwo() {
 		<div className={cx('slide-two')}>
 			<ThumbnailContainer
 				Image={thumbnail}
-				style={{
-					width: 268,
-					height: 338,
-					transform: 'translate(45%, 90px)',
-				}}
+				style={
+					{
+						width: 268,
+						height: 338,
+						'--transform': 'translate(45%, 90px)',
+					} as CSSProperties
+				}
 			/>
 
 			<div className={cx('text-box')}>

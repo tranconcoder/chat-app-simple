@@ -1,6 +1,7 @@
 import './assets/scss/fonts.scss';
 import './assets/scss/reset.scss';
 import './assets/scss/variables.scss';
+import './assets/scss/global.scss';
 
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';

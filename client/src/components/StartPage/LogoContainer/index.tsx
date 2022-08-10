@@ -24,6 +24,8 @@ function ThumbnailContainer({
 				'first-animation': animation === 'firstAnimation',
 			})}
 		>
+			<div className={cx('circle')}></div>
+
 			<img {...allAttribute} src={Image} alt="thumbnail" />
 
 			{children}

@@ -3,6 +3,10 @@
 	@include flex(column, center);
 
 	.text-box {
+		opacity: 0;
+		animation: startPageShowTextBox 1s ease-in-out 500ms forwards;
+		margin-top: 150px;
+
 		> h2 {
 			@include flex(row, center, center);
 			color: var(--white-color);

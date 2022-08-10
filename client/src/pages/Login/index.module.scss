@@ -1,0 +1,22 @@
+.login-page {
+	@include size(100vw, 100vh);
+	background-color: var(--primary-color);
+
+	.header-container {
+		@include size(100%, 200px);
+		@include position(relative);
+		overflow: hidden;
+
+		.circle {
+			@include size(462px);
+			@include position(absolute, false, 50%, 0);
+			transform: translateX(50%);
+			border-radius: 50%;
+			background-color: var(--white-color);
+		}
+
+		img {
+			@include position(absolute, false, 50%, 20px);
+		}
+	}
+}

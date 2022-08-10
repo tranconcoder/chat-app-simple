@@ -39,11 +39,11 @@ function StartPageLayout({ bodyElement }: StartPageLayoutProps) {
 	};
 
 	const startPageToGo = async (step: number) => {
-		if (step > MAX_STEP) navigate('/login/login');
+		if (step > MAX_STEP) navigate('/auth/login');
 		else {
 			setIsHiding(true);
 
-			await sleep(400);
+			await sleep(500);
 
 			const newPath = `${location.pathname
 				.split('/')

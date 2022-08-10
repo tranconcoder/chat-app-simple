@@ -8,10 +8,25 @@
 		transform: translateX(50%);
 		background-color: var(--white-color);
 		border-radius: 50%;
-		z-index: -1;
+		z-index: 1;
+		opacity: 0;
+		animation: showCircle 500ms 1s ease-in-out forwards;
+
+		@keyframes showCircle {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
 	}
 
 	.text-box {
+		opacity: 0;
+		animation: startPageShowTextBox 1s ease-in-out 500ms forwards;
+		margin-top: 150px;
+
 		h2 {
 			@include flex(row, center, center);
 			color: var(--white-color);

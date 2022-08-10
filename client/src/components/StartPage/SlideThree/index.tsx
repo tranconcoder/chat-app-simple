@@ -4,6 +4,7 @@ import ThumbnailContainer from '../LogoContainer';
 import styles from './index.module.scss';
 import { ReactComponent as CallIcon } from '../../../assets/images/call-icon.svg';
 import thumbnail from '../../../assets/images/start-page-slide-three-thumb.svg';
+import { CSSProperties } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -12,12 +13,14 @@ function SlideThree() {
 		<div className={cx('slide-three')}>
 			<ThumbnailContainer
 				Image={thumbnail}
-				style={{
-					width: 280,
-					height: 300,
-					transform: 'translate(50%, 120px)',
-					animation: 'inherit',
-				}}
+				style={
+					{
+						width: 280,
+						height: 300,
+						'--transform': 'translate(50%, 120px)',
+						zIndex: 2,
+					} as CSSProperties
+				}
 			>
 				<div className={cx('circle')}></div>
 			</ThumbnailContainer>

@@ -5,7 +5,7 @@ module.exports = function override(config, env) {
 			{
 				loader: 'sass-loader',
 				options: {
-					additionalData: `@import 'src/assets/scss/package.scss';`,
+					additionalData: `@import 'src/assets/scss/package/package.scss';`,
 				},
 			},
 		],

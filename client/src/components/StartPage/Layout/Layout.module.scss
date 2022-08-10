@@ -2,6 +2,7 @@
 	@include size(100vw, 100vh);
 	@include flex(column);
 	background-color: var(--primary-color);
+	overflow-x: hidden;
 
 	.body {
 		@include size(100%, false);
