@@ -12,7 +12,7 @@ export const passwordSchema = Yup.string()
 
 export const confirmPasswordSchema = Yup.string().oneOf(
 	[Yup.ref('password'), null],
-	'Passwords must match'
+	'Mật khẩu nhập lại không khớp với trước đó!'
 );
 
 export const emailSchema = Yup.string()

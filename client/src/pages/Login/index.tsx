@@ -1,14 +1,14 @@
 import classNames from 'classnames/bind';
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 
 import LoginWithGoogleButton from '../../components/Common/LoginWithGoogleButton';
 
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { BiErrorCircle } from 'react-icons/bi';
 import tapoLogo from '../../assets/images/logo.png';
+import Input from '../../components/Auth/Input';
+import SubmitButton from '../../components/Auth/SubmitButton';
 import { loginValidationSchema } from '../../config/validateSchema.config';
 import styles from './index.module.scss';
 
@@ -22,24 +22,19 @@ const authFormValues = {
 function LoginPage() {
 	const navigate = useNavigate();
 	const googleId = useAppSelector((state) => state.auth.googleId);
-	const [showPassword, setShowPassword] = useState(false);
+	const userId = useAppSelector((state) => state.auth.userId);
 
 	useEffect(() => {
-		// if (googleId) navigate(-1);
+		if (googleId || userId) navigate("/chat");
 	}, [googleId]);
 
-	const toggleShowPassword = () => {
-		setShowPassword(!showPassword);
-	};
 	const handleSubmit = (
 		value: typeof authFormValues,
 		helper: FormikHelpers<typeof authFormValues>
 	) => {
 		console.log(value);
 	};
-	const handleRegister = async () => {
-		navigate('/auth/register');
-	};
+	
 
 	return (
 		<div className={cx('login-page')}>
@@ -62,52 +57,29 @@ function LoginPage() {
 
 						<p className={cx('separate')}>Hoặc</p>
 
-						<Field name="username" placeholder="Tên đăng nhập..." />
-						<ErrorMessage
+						<Field
 							name="username"
-							render={(message) => (
-								<p className={cx('error-message')}>
-									<BiErrorCircle />
-									<span>{message}</span>
-								</p>
-							)}
+							placeholder="Tên đăng nhập..."
+							component={Input}
+							style={{ height: 50 }}
 						/>
 
-						<div className={cx('password-input')}>
-							<Field
-								name="password"
-								type={showPassword ? 'text' : 'password'}
-								placeholder="Mật khẩu..."
-							/>
-
-							<div
-								className={cx('toggle-password')}
-								onClick={toggleShowPassword}
-							>
-								{showPassword ? (
-									<AiFillEyeInvisible />
-								) : (
-									<AiFillEye />
-								)}
-							</div>
-						</div>
-						<ErrorMessage
+						<Field
 							name="password"
-							render={(message) => (
-								<p className={cx('error-message')}>
-									<BiErrorCircle />
-									<span>{message}</span>
-								</p>
-							)}
+							placeholder="Mật khẩu..."
+							component={Input}
+							style={{ height: 50 }}
+							parentStyle={{ marginTop: 20 }}
+							showAndHidePassword
 						/>
 
-						<button type="submit">
+						<SubmitButton>
 							<p>Đăng nhập</p>
-						</button>
+						</SubmitButton>
 
 						<footer className={cx('form-footer')}>
-							<span>Quên mật khẩu?</span>
-							<span onClick={handleRegister}>Đăng ký</span>
+							<Link to="/auth/login">Quên mật khẩu?</Link>
+							<Link to="/auth/register">Đăng ký</Link>
 						</footer>
 					</Form>
 				</Formik>
