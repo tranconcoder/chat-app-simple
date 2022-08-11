@@ -1,6 +1,8 @@
 .login-page {
 	@include size(100vw, 100vh);
+	overflow: auto;
 	background-color: var(--primary-color);
+	padding-bottom: 30px;
 
 	.header-container {
 		@include size(100%, 200px);
@@ -16,7 +18,123 @@
 		}
 
 		img {
-			@include position(absolute, false, 50%, 20px);
+			@include size(98px, 90px);
+			@include position(absolute, false, 50%, 50px);
+			transform: translateX(50%);
+		}
+	}
+
+	.body {
+		margin-top: 60px;
+
+		.form {
+			@include size(320px, false);
+			@include maxSize(90vw, false);
+			margin-inline: auto;
+
+			.separate {
+				margin-block: 24px;
+				color: var(--white-color);
+				font-weight: 400;
+				font-size: 16px;
+				text-align: center;
+			}
+
+			> input,
+			.password-input {
+				@include size(100%, 50px);
+			}
+
+			input {
+				border-radius: 4px;
+				border: 2px solid transparent;
+				padding-inline: 10px;
+
+				&:focus {
+					border-color: rgb(190, 190, 190);
+				}
+
+				&::selection {
+					color: rgb(0, 0, 0);
+					background: rgba(255, 187, 0, 0.548);
+				}
+			}
+
+			.password-input {
+				@include position(relative);
+				margin-top: 20px;
+
+				input {
+					@include size(100%);
+				}
+
+				.toggle-password {
+					svg {
+						@include position(absolute, 50%, 10px);
+						@include size(18px);
+						transform: translateY(-50%);
+						padding: 10px;
+						box-sizing: content-box;
+						color: #555;
+					}
+				}
+			}
+
+			button[type='submit'] {
+				@include size(100%, 50px);
+				border-radius: 4px;
+				margin-top: 20px;
+				background-color: #f9c58d;
+				transition: all ease-in-out 100ms;
+
+				&:active {
+					opacity: 0.7;
+				}
+
+				p {
+					color: #333;
+					font-size: 16px;
+					font-weight: 500;
+				}
+			}
+
+			.form-footer {
+				@include size(100%, false);
+				@include flex(row, center, space-between);
+				margin-top: 50px;
+				color: var(--white-color);
+			}
+
+			.error-message {
+				@include size(100%, false);
+				@include flex(row, center);
+				color: rgb(255, 38, 0);
+				font-size: 14px;
+				margin-top: 8px;
+				overflow: hidden;
+				animation: showErrorMessage 300ms ease-in-out forwards;
+
+				svg {
+					@include size(18px);
+					flex-shrink: 0;
+					margin-right: 10px;
+				}
+
+				span {
+					@include webkitMaxLine(2);
+				}
+
+				@keyframes showErrorMessage {
+					from {
+						opacity: 0;
+						max-height: 0;
+					}
+					to {
+						opacity: 1;
+						max-height: 30px;
+					}
+				}
+			}
 		}
 	}
 }

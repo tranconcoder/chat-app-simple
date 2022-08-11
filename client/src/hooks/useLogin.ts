@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setAuth } from '../redux/slices/auth.slice';
-import { getCookie, setCookie } from '../utils/cookie.util';
+import { setCookie } from '../utils/cookie.util';
 import useUpdateToken from './useUpdateToken';
 
 export function useLogin() {

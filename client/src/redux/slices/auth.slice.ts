@@ -1,28 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { copyFieldValueObj } from '../../utils/object.util';
-
-interface AuthStore {
-	googleId: string;
-	firstName?: string;
-	lastName?: string;
-	displayName: string;
-	email?: string;
-	avatar?: string;
-}
+import type { AuthStore } from '../../types/store';
 
 // Define the initial state using that type
 const initialState: AuthStore = {
 	googleId: '',
-	firstName: undefined,
-	lastName: undefined,
+	userId: '',
+	firstName: '',
+	lastName: '',
 	displayName: '',
-	email: undefined,
-	avatar: undefined,
+	email: '',
+	avatar: '',
+	gender: '',
+	dayOfBirth: {
+		display: '',
+		data: {
+			day: '',
+			month: '',
+			year: '',
+		},
+	},
 };
 
 export const authSlice = createSlice({
-	name: 'counter',
+	name: 'auth',
 	initialState,
 	reducers: {
 		setAuth(state, action: PayloadAction<Partial<AuthStore>>) {
