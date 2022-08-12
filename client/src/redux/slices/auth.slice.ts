@@ -13,14 +13,7 @@ const initialState: AuthStore = {
 	email: '',
 	avatar: '',
 	gender: '',
-	dayOfBirth: {
-		display: '',
-		data: {
-			day: '',
-			month: '',
-			year: '',
-		},
-	},
+	birthDay: {},
 };
 
 export const authSlice = createSlice({

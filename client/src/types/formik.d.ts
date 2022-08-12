@@ -1,7 +1,7 @@
 export interface RegisterInitValues
 	extends Pick<
 		AuthStore,
-		'firstName' | 'lastName' | 'dayOfBirth' | 'gender' | 'email'
+		'firstName' | 'lastName' | 'gender' | 'email'
 	> {
 	username: string;
 	password: string;

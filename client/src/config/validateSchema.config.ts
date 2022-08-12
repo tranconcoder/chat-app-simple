@@ -23,5 +23,4 @@ export const registerValidationSchema = Yup.object({
 	firstName: firstNameSchema,
 	lastName: lastNameSchema,
 	gender: genderSchema,
-	dayOfBirth: dayOfBirthSchema,
 });

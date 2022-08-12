@@ -10,7 +10,6 @@ export function setupViewEngine(app: Application) {
 	app.set('view engine', '.hbs');
 	app.set('views', path.join(__dirname, '../views'));
 	handlebars.registerHelper('toJson', (data) => {
-		console.log(JSON.stringify(data));
 		return JSON.stringify(data);
 	});
 }

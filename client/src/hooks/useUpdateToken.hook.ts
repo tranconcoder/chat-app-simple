@@ -44,11 +44,15 @@ export default function useUpdateToken() {
 			});
 	};
 
-	return () => {
+	return (refreshToken?: string) => {
+		setCookie(
+			'refreshToken',
+			refreshToken || getCookie('refreshToken'),
+			1 * 60 * 60 * 1000
+		);
+
 		clearInterval(updateAccessTokenInterval);
 		clearInterval(updateRefreshTokenInterval);
-
-		console.log(getCookie('refreshToken'));
 
 		handleUpdateAccessToken();
 		handleUpdateRefreshToken();

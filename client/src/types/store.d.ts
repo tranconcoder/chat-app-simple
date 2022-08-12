@@ -7,12 +7,9 @@ export interface AuthStore {
 	email: string;
 	avatar: string;
 	gender: 'Male' | 'Female' | '';
-	dayOfBirth: {
-		display: string;
-		data?: {
-			day: string;
-			month: string;
-			year: string;
-		};
+	birthDay: {
+		day?: number;
+		month?: number;
+		year?: number;
 	};
 }

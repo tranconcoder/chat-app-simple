@@ -26,8 +26,6 @@ export const generateToken = (
 		return token;
 	} catch (err) {
 		console.error(err);
-
-		return err;
 	}
 };
 

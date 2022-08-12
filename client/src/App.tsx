@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import useNeedAuth from './hooks/useNeedAuth';
+import useNeedAuth from './hooks/useNeedAuth.hook';
 
 function App() {
 	useNeedAuth();

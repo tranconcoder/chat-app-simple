@@ -2,15 +2,19 @@ import classNames from 'classnames/bind';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 import LoginWithGoogleButton from '../../components/Common/LoginWithGoogleButton';
 
 import tapoLogo from '../../assets/images/logo.png';
 import Input from '../../components/Auth/Input';
-import SubmitButton from '../../components/Auth/SubmitButton';
 import { loginValidationSchema } from '../../config/validateSchema.config';
 import styles from './index.module.scss';
+import instance from '../../services/axios/index.axios';
+import useUpdateToken from '../../hooks/useUpdateToken.hook';
+import jwtDecode from 'jwt-decode';
+import { setAuth } from '../../redux/slices/auth.slice';
+import { AuthStore } from '../../types/store';
 
 const cx = classNames.bind(styles);
 
@@ -20,21 +24,33 @@ const authFormValues = {
 };
 
 function LoginPage() {
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const updateToken = useUpdateToken();
+
 	const googleId = useAppSelector((state) => state.auth.googleId);
 	const userId = useAppSelector((state) => state.auth.userId);
 
 	useEffect(() => {
-		if (googleId || userId) navigate("/chat");
+		if (googleId || userId) navigate('/chat');
 	}, [googleId]);
 
-	const handleSubmit = (
-		value: typeof authFormValues,
+	const handleSubmit = async (
+		values: typeof authFormValues,
 		helper: FormikHelpers<typeof authFormValues>
 	) => {
-		console.log(value);
+		const { data } = await instance.post('/auth/login', values);
+
+		if (data.refreshToken) {
+			const userProfile: AuthStore = jwtDecode(data.refreshToken);
+
+			updateToken(data.refreshToken);
+
+			console.log(userProfile);
+
+			dispatch(setAuth(userProfile));
+		}
 	};
-	
 
 	return (
 		<div className={cx('login-page')}>
@@ -73,9 +89,9 @@ function LoginPage() {
 							showAndHidePassword
 						/>
 
-						<SubmitButton>
+						<button type="submit">
 							<p>Đăng nhập</p>
-						</SubmitButton>
+						</button>
 
 						<footer className={cx('form-footer')}>
 							<Link to="/auth/login">Quên mật khẩu?</Link>

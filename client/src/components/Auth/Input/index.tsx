@@ -1,10 +1,11 @@
-import { FieldProps } from 'formik';
 import classNames from 'classnames/bind';
+import { FieldProps } from 'formik';
 
-import styles from './index.module.scss';
-import { BiErrorCircle } from 'react-icons/bi';
-import { CSSProperties, InputHTMLAttributes, useState } from 'react';
+import { CSSProperties, InputHTMLAttributes, useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { BiErrorCircle } from 'react-icons/bi';
+import useDebounce from '../../../hooks/useDebounce.hook';
+import styles from './index.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -14,13 +15,19 @@ function Input({
 	meta,
 	showAndHidePassword = false,
 	parentStyle = {},
+	debounce,
 	...props
 }: FieldProps & {
 	showAndHidePassword?: boolean;
 	parentStyle?: CSSProperties;
+	debounce?: {
+		callback: (value: string) => any;
+		duration: number;
+	};
 } & InputHTMLAttributes<HTMLInputElement>) {
 	const [touched, setTouched] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
+	const debounceValue = useDebounce(field.value, debounce?.duration || 500);
 
 	const toggleShowPassword = () => setShowPassword(!showPassword);
 	const handleBlur = (e: any) => {
@@ -31,6 +38,10 @@ function Input({
 		field.onChange(e);
 		setTouched(true);
 	};
+
+	useEffect(() => {
+		debounce?.callback(field.value);
+	}, [debounceValue]);
 
 	return (
 		<div className={cx('input-container')} style={parentStyle}>

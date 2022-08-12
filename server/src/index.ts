@@ -15,6 +15,8 @@ const PORT = Number(process.env.PORT) || 3000;
 
 // Setup server
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 setupMongoose();
 setupViewEngine(app);
 setupStaticFile(app);

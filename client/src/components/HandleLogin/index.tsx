@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import { useEffect } from 'react';
 
-import useUpdateToken from '../../hooks/useUpdateToken';
+import useUpdateToken from '../../hooks/useUpdateToken.hook';
 import { useAppDispatch } from '../../redux/hooks';
 import { setAuth } from '../../redux/slices/auth.slice';
 import instance from '../../services/axios/index.axios';
@@ -31,7 +31,7 @@ function HandleLogin({}: HandleLoginProps) {
 					},
 				})
 				.then(handleSetProfile)
-				.then(updateToken)
+				.then(() => updateToken(refreshToken))
 				.catch(() => {});
 		}
 	}, []);

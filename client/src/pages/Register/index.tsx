@@ -4,8 +4,8 @@ import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { Link } from 'react-router-dom';
 import tapoLogo from '../../assets/images/logo.png';
 import Input from '../../components/Auth/Input';
-import SubmitButton from '../../components/Auth/SubmitButton';
 import { registerValidationSchema } from '../../config/validateSchema.config';
+import instance from '../../services/axios/index.axios';
 import type { RegisterInitValues } from '../../types/formik';
 import styles from './index.module.scss';
 
@@ -20,14 +20,6 @@ function RegisterPage() {
 		lastName: '',
 		email: '',
 		gender: '',
-		dayOfBirth: {
-			display: '',
-			data: {
-				day: '',
-				month: '',
-				year: '',
-			},
-		},
 	};
 
 	const handleSubmit = (
@@ -35,6 +27,21 @@ function RegisterPage() {
 		helpers: FormikHelpers<typeof registerInitValues>
 	) => {
 		console.log(values);
+
+		instance
+			.post('/auth/register', values)
+			.then((res) => console.log(res))
+			.catch(() => {});
+	};
+	const handleCheckUsername = (value: string) => {
+		instance
+			.get('/auth/check-user-name', {
+				params: {
+					username: value,
+				},
+			})
+			.then((res) => console.log(res))
+			.catch(() => {});
 	};
 
 	return (
@@ -60,6 +67,10 @@ function RegisterPage() {
 							component={Input}
 							style={{ height: 50 }}
 							parentStyle={{ marginTop: 40 }}
+							debounce={{
+								callback: handleCheckUsername,
+								duration: 1000,
+							}}
 						/>
 
 						<Field
@@ -114,9 +125,9 @@ function RegisterPage() {
 							<span>Nữ</span>
 						</label>
 
-						<SubmitButton>
+						<button type="submit">
 							<p>Đăng ký</p>
-						</SubmitButton>
+						</button>
 
 						<footer className={cx('form-footer')}>
 							<Link to="/auth/login">
