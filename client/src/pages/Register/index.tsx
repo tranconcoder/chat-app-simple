@@ -1,10 +1,13 @@
 import classNames from 'classnames/bind';
 
 import { Field, Form, Formik, FormikHelpers } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import tapoLogo from '../../assets/images/logo.png';
 import Input from '../../components/Auth/Input';
 import { registerValidationSchema } from '../../config/validateSchema.config';
+import { useAppDispatch } from '../../redux/hooks';
+import { addMessage } from '../../redux/slices/toastMessage.slice';
 import instance from '../../services/axios/index.axios';
 import type { RegisterInitValues } from '../../types/formik';
 import styles from './index.module.scss';
@@ -12,6 +15,9 @@ import styles from './index.module.scss';
 const cx = classNames.bind(styles);
 
 function RegisterPage() {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+
 	const registerInitValues: RegisterInitValues = {
 		username: '',
 		password: '',
@@ -30,7 +36,20 @@ function RegisterPage() {
 
 		instance
 			.post('/auth/register', values)
-			.then((res) => console.log(res))
+			.then((res) => {
+				if (res.statusText !== 'OK') return;
+
+				dispatch(
+					addMessage({
+						id: uuidv4(),
+						title: 'Đăng ký thành công!',
+						type: 'success',
+						state: 'showing',
+					})
+				);
+
+				navigate('/auth/login');
+			})
 			.catch(() => {});
 	};
 	const handleCheckUsername = (value: string) => {

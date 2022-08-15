@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setAuth } from '../redux/slices/auth.slice';
-import { setCookie } from '../utils/cookie.util';
 import useUpdateToken from './useUpdateToken.hook';
 
 export function useLogin() {
@@ -25,11 +24,9 @@ export function useLogin() {
 		function handleListenMessage(e: MessageEvent<any>) {
 			if (e.origin === 'http://localhost:3000') {
 				const profile = e.data.profile;
-				const accessToken = e.data.accessToken;
 				const refreshToken = e.data.refreshToken;
 
-				setCookie('refreshToken', refreshToken, 1 * 60 * 60 * 1000);
-				updateToken();
+				updateToken(refreshToken);
 
 				dispatch(setAuth(profile));
 

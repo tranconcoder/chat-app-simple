@@ -13,8 +13,8 @@ const initialState: IntervalStore = {
 	updateRefreshToken: -1,
 };
 
-export const authSlice = createSlice({
-	name: 'counter',
+export const intervalSlice = createSlice({
+	name: 'interval',
 	initialState,
 	reducers: {
 		setIntervals(state, action: PayloadAction<Partial<IntervalStore>>) {
@@ -23,6 +23,6 @@ export const authSlice = createSlice({
 	},
 });
 
-export const { setIntervals } = authSlice.actions;
+export const { setIntervals } = intervalSlice.actions;
 
-export default authSlice.reducer;
+export default intervalSlice.reducer;

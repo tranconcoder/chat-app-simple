@@ -17,7 +17,7 @@ class Token {
 
 			const newAccessToken = generateToken(payload, 'access');
 
-			res.json({ accessToken: newAccessToken });
+			res.json({ accessToken: newAccessToken }).end();
 		} catch (err) {
 			res.status(400).json(err);
 		}

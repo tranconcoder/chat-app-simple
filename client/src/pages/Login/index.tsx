@@ -6,15 +6,15 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 import LoginWithGoogleButton from '../../components/Common/LoginWithGoogleButton';
 
+import jwtDecode from 'jwt-decode';
 import tapoLogo from '../../assets/images/logo.png';
 import Input from '../../components/Auth/Input';
 import { loginValidationSchema } from '../../config/validateSchema.config';
-import styles from './index.module.scss';
-import instance from '../../services/axios/index.axios';
 import useUpdateToken from '../../hooks/useUpdateToken.hook';
-import jwtDecode from 'jwt-decode';
 import { setAuth } from '../../redux/slices/auth.slice';
+import instance from '../../services/axios/index.axios';
 import { AuthStore } from '../../types/store';
+import styles from './index.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +33,7 @@ function LoginPage() {
 
 	useEffect(() => {
 		if (googleId || userId) navigate('/chat');
-	}, [googleId]);
+	}, [googleId, userId]); // eslint-disable-line
 
 	const handleSubmit = async (
 		values: typeof authFormValues,
@@ -45,9 +45,6 @@ function LoginPage() {
 			const userProfile: AuthStore = jwtDecode(data.refreshToken);
 
 			updateToken(data.refreshToken);
-
-			console.log(userProfile);
-
 			dispatch(setAuth(userProfile));
 		}
 	};

@@ -1,45 +1,44 @@
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import useNeedAuth from './hooks/useNeedAuth.hook';
+import { Fragment } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HandleLogin from './components/HandleLogin';
+import ToastMessage from './components/ToastMessage';
+import startRouteConfig from './config/startRoute.config';
+import ChatPage from './pages/Chat';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 function App() {
-	useNeedAuth();
-
-	const [chatList, setChatList] = useState<string[]>([]);
-	const [messageInput, setMessageInput] = useState<string>('');
-
-	const [socket] = useState(
-		io('http://localhost:3000/', {
-			path: '/socket',
-		})
-	);
-
-	const handleChat = (e: any) => {
-		socket.emit('say', messageInput);
-	};
-
-	useEffect(() => {
-		socket.connect();
-		socket.on('say', (newChatContent: string) => {
-			setChatList((oldChatList) => [...oldChatList, newChatContent]);
-		});
-	}, []);
-
 	return (
-		<div className="App">
-			<ul>
-				{chatList.map((content, index) => (
-					<li key={index}>{content}</li>
-				))}
-			</ul>
+		<Fragment>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/start">
+						{Object.entries(startRouteConfig).map(
+							([key, value], index) => {
+								return (
+									<Route
+										key={index}
+										path={key}
+										element={value}
+									/>
+								);
+							}
+						)}
+					</Route>
 
-			<input
-				type="text"
-				value={messageInput}
-				onChange={(e) => setMessageInput(e.target.value)}
-			/>
-			<button onClick={handleChat}>Send</button>
-		</div>
+					<Route path="/auth">
+						<Route path="login" element={<LoginPage />} />
+						<Route path="register" element={<RegisterPage />} />
+					</Route>
+
+					<Route path="/chat" element={<ChatPage />} />
+				</Routes>
+
+				<HandleLogin />
+			</BrowserRouter>
+
+			<ToastMessage />
+		</Fragment>
 	);
 }
 

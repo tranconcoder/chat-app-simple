@@ -102,7 +102,6 @@ class Auth {
 						accountType: 'local',
 					},
 					async (err: any) => {
-						console.log(err);
 						if (err) {
 							await accountSchemaDb.findOneAndDelete({
 								username: data.username,
@@ -110,6 +109,11 @@ class Auth {
 
 							return res.status(400).send(err).end();
 						}
+
+						return res
+							.status(200)
+							.send('Register successful')
+							.end();
 					}
 				);
 			}
