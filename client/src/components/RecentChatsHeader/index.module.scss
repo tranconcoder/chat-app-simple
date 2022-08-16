@@ -1,0 +1,32 @@
+.separate {
+	@include size(100%, 36px);
+	@include position(relative);
+
+	&::before {
+		content: '';
+		@include size(24px, 3px);
+		@include position(absolute, 8px, 50%, false);
+		transform: translateX(50%);
+		background: #020e12;
+		opacity: 0.2;
+		border-radius: 100px;
+		display: block;
+	}
+}
+
+.header {
+	@include flex(row, center, space-between);
+
+	> span {
+		font-size: 18px;
+		line-height: 21px;
+		background: linear-gradient(90deg, #33bee7 20%, #7cd6f1 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	> svg {
+		@include size(24px);
+	}
+}

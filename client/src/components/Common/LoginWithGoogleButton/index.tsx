@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { AllHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useLogin } from '../../../hooks/useLogin.hook';
 

@@ -1,13 +1,11 @@
 import * as Yup from 'yup';
 import {
-	confirmPasswordSchema,
-	dayOfBirthSchema,
-	emailSchema,
+	confirmPasswordSchema, emailSchema,
 	firstNameSchema,
 	genderSchema,
 	lastNameSchema,
 	passwordSchema,
-	usernameSchema,
+	usernameSchema
 } from './yupFieldStore.config';
 
 export const loginValidationSchema = Yup.object({

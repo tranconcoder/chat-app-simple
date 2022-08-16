@@ -37,7 +37,7 @@ export function useLogin() {
 		window.addEventListener('message', handleListenMessage);
 
 		return () => window.removeEventListener('message', handleListenMessage);
-	}, [handleLogin]);
+	}, [handleLogin]); // eslint-disable-line
 
 	return { profile, triggerLogin };
 }

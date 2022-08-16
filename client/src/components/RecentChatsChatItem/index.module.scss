@@ -1,0 +1,9 @@
+.chat-item {
+	@include size(100%, 64px);
+	@include flex(row, center);
+	border-radius: 10px;
+
+	&:active {
+		background: rgb(245, 245, 245);
+	}
+}

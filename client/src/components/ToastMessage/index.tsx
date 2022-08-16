@@ -1,11 +1,8 @@
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
-	addMessage,
 	closeAllMessage,
-	removeAllMessage,
+	removeAllMessage
 } from '../../redux/slices/toastMessage.slice';
 import { ToastMessageItemProps } from '../../types/props';
 import ToastMessageItem from '../ToastMessageItem';

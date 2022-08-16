@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react';
+import { CSSProperties } from 'react';
 
 import classNames from 'classnames/bind';
 import { ToastMessageItemProps } from '../../types/props';

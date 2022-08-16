@@ -41,7 +41,7 @@ function Input({
 
 	useEffect(() => {
 		debounce?.callback(field.value);
-	}, [debounceValue]);
+	}, [debounceValue]); // eslint-disable-line
 
 	return (
 		<div className={cx('input-container')} style={parentStyle}>

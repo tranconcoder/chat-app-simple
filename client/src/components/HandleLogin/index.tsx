@@ -10,7 +10,7 @@ import { Profile } from '../../types/common';
 import { HandleLoginProps } from '../../types/props';
 import { getCookie } from '../../utils/cookie.util';
 
-function HandleLogin({}: HandleLoginProps) {
+function HandleLogin(props: HandleLoginProps) {
 	const dispatch = useAppDispatch();
 	const updateToken = useUpdateToken();
 
@@ -34,7 +34,7 @@ function HandleLogin({}: HandleLoginProps) {
 				.then(() => updateToken(refreshToken))
 				.catch(() => {});
 		}
-	}, []);
+	}, []); // eslint-disable-line
 
 	return null;
 }
