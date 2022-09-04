@@ -24,13 +24,33 @@ export interface RecentChatsFiltersProps {
 }
 
 export interface RecentChatsContentListProps {
-	selectedFilter: SelectedFilter;
+	selectedFilter?: SelectedFilter;
+	dataToRender: RecentChatsChatItemProps[];
 }
 
 export interface RecentChatsChatItemProps {
+	peopleId: string;
 	avatar: string;
 	name: string;
-	lastMessage: string;
-	lastMessageSendTime: Date;
+	lastMessage?: string;
+	lastMessageSendTime?: number;
 	unSeenCount?: number;
+}
+
+export interface ChatPageHeaderProps {
+	active: boolean;
+	name: string;
+	avatar: string;
+}
+
+export interface ChatPageMessageListProps {
+	avatar: string;
+	messageGroupList: {
+		peopleId: string;
+		messageList: {
+			content: string;
+			sendAt: number;
+			emoji?: Emoji;
+		}[];
+	}[];
 }

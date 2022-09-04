@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { memo } from 'react';
 import { RecentChatsFiltersProps } from '../../types/props';
 
 import styles from './index.module.scss';
@@ -25,4 +26,4 @@ function RecentChatsFilters({
 	);
 }
 
-export default RecentChatsFilters;
+export default memo(RecentChatsFilters);

@@ -1,3 +1,5 @@
+import { ObjectAnyKey } from './common';
+
 export interface AuthStore {
 	googleId: string;
 	userId: string;
@@ -12,4 +14,18 @@ export interface AuthStore {
 		month?: number;
 		year?: number;
 	};
+}
+
+export interface MessageStoreItem extends ObjectAnyKey {
+	id: string;
+	avatar: string;
+	messageList: {
+		content: string;
+		sendTime: number;
+		seen: boolean;
+	}[];
+}
+
+export interface MessageStore extends Array<MessageStoreItem> {
+	[index: number]: MessageStoreItem;
 }

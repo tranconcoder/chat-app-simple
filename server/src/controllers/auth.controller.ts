@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import { Validator } from 'jsonschema';
-import jwt from 'jsonwebtoken';
 
 import {
 	googleLoginSchema,
@@ -9,12 +8,8 @@ import {
 } from '../config/validateSchema.config';
 import accountSchemaDb from '../database/schema/account.schema.db';
 import authSchemaDb from '../database/schema/auth.schema.db';
-import { profileTransformer } from '../transformers/auth.transformer';
 import Account from '../types/account';
-import {
-	ProfileTransformedGoogle,
-	ProfileTransformLocalInput,
-} from '../types/transformers';
+import { ProfileTransformedGoogle } from '../types/transformers';
 import { generateToken } from '../utils/token.utils';
 
 class Auth {

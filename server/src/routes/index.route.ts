@@ -3,6 +3,8 @@ import Home from './home.route';
 import Auth from './auth.route';
 import { CustomRoute } from '../utils/route.utils';
 import API from './api.route';
+import Chat from './chat.route';
+import needAuth from '../middlewares/needAuth.middleware';
 
 class IndexRoute extends CustomRoute {
 	constructor(app: Express) {
